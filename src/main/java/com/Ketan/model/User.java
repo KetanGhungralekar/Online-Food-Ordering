@@ -28,6 +28,8 @@ public class User {
     private String email;
     private String password;
     private USER_ROLE role = USER_ROLE.ROLE_CUSTOMER;
+    //create a json object of user
+    //onject = 
 
     @JsonIgnore // To avoid infinite recursion
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer") // To create a foreign key in the Order table

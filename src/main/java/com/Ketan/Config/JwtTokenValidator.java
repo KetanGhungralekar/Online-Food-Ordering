@@ -10,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.Claims;
@@ -26,6 +25,23 @@ public class JwtTokenValidator extends OncePerRequestFilter{
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String jwt = request.getHeader(JwtConstant.JWT_HEADER);
+        if (request.getRequestURI().equals("/auth/signup") && (jwt == null || jwt.isEmpty())) {
+            try{
+                filterChain.doFilter(request, response);
+            } catch (Exception e){
+                throw new BadCredentialsException("Invalid request");
+            
+            }// Allow the request to proceed without authentication
+            return;
+        }
+        if (request.getRequestURI().equals("/auth/signin") && (jwt == null || jwt.isEmpty())) {
+            try{
+                filterChain.doFilter(request, response);
+            } catch (Exception e){
+                throw new BadCredentialsException("Invalid request");
+            }// Allow the request to proceed without authentication
+            return;
+        }
         if (jwt != null){
             jwt = jwt.substring(7);
             try {
@@ -39,15 +55,13 @@ public class JwtTokenValidator extends OncePerRequestFilter{
                 String authorities=String.valueOf(claims.get("authorities"));
                 List<GrantedAuthority> authorityList = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
                 Authentication authentication = new UsernamePasswordAuthenticationToken(email, null, authorityList);
-                SecurityContextHolder.getContext().setAuthentication(authentication); // This line is used to set the authentication in the security context.
-                //which means user is authenticated? // answer is yes
-                //what does this code do?
-                //but here token exists so how are we checking that it is valid or not?
-                //so signing key is wrong then exception will be thrown?
-                //invalid token will be caught in catch block?
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception e){
                 throw new BadCredentialsException("Invalid token");
             }
+        }
+        else{
+            throw new BadCredentialsException("Token not found");
         }
     }
 }
