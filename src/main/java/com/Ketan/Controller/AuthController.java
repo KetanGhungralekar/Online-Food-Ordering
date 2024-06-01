@@ -50,7 +50,8 @@ public class AuthController {
     private CartRepository cartRepository;
 
     @PostMapping("/signup")
-    public ResponseEntity<AuthResponse>createUserHandler(@RequestBody User user) throws Exception{;
+    public ResponseEntity<AuthResponse>createUserHandler(@RequestBody User user) throws Exception{
+        System.out.println(user.getEmail());
         User user1 = userRepository.findByEmail(user.getEmail());
         if (user1 != null){
             throw new Exception("Email already exists");
@@ -59,7 +60,7 @@ public class AuthController {
         user2.setEmail(user.getEmail());
         user2.setFullname(user.getFullname());
         user2.setRole(user.getRole());
-        // user2.setPassword(passwordEncoder.encode(user.getPassword()));
+        System.out.println(user.getPassword());
         user2.setPassword(passwordEncoder.encode(user.getPassword()));
         User saved_user = userRepository.save(user2);
         Cart cart = new Cart();
@@ -71,6 +72,7 @@ public class AuthController {
         AuthResponse authResponse = new AuthResponse();
         authResponse.setToken(jwt);
         authResponse.setRole(saved_user.getRole());
+        authResponse.setMessage("Signup successful");
         return new ResponseEntity<>(authResponse, HttpStatus.CREATED);
     }
 

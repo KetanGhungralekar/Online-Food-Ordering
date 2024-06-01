@@ -55,7 +55,8 @@ public class JwtTokenValidator extends OncePerRequestFilter{
                 String authorities=String.valueOf(claims.get("authorities"));
                 List<GrantedAuthority> authorityList = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
                 Authentication authentication = new UsernamePasswordAuthenticationToken(email, null, authorityList);
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                SecurityContextHolder.getContext().setAuthentication(authentication); // This line is used to set the authentication in the security context. //oh then this authentication is used in the controller to get the user details.
+                filterChain.doFilter(request, response); // is this required? // Yes, this line is used to allow the request to proceed. but authentication is already set in the security context. //then also we need to call this line? // Yes, this line is used to allow the request to proceed.
             } catch (Exception e){
                 throw new BadCredentialsException("Invalid token");
             }

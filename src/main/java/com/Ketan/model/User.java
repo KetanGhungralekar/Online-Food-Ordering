@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.Ketan.dto.Restaurant_dti;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -26,6 +28,8 @@ public class User {
     private Long id;
     private String fullname;
     private String email;
+    
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private USER_ROLE role = USER_ROLE.ROLE_CUSTOMER;
     //create a json object of user

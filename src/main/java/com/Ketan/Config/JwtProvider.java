@@ -26,13 +26,13 @@ public class JwtProvider {
         String jwt = Jwts.builder().setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime() + 86400000)).claim("authorities", roles).claim("email",auth.getName()).signWith(secretKey).compact();
         return jwt;
     }
-    private String GetEmailfromJwt(String jwt){
+    public String GetEmailfromJwt(String jwt){
         jwt = jwt.substring(7);
         Claims claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jwt).getBody();
         String email = String.valueOf(claims.get("email"));
         return email;
     }
-    private String populateAuthorities(Collection<? extends GrantedAuthority> grantedAuthorities){
+    public String populateAuthorities(Collection<? extends GrantedAuthority> grantedAuthorities){
         Set<String> sb = new HashSet<>();
         for (GrantedAuthority grantedAuthority : grantedAuthorities){
             sb.add(grantedAuthority.getAuthority());
