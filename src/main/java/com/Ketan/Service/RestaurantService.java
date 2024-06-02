@@ -18,5 +18,6 @@ public interface RestaurantService {
     public List<Restaurant> searchRestaurantsByCuisine(String cuisine) throws Exception;
     public Restaurant getRestaurantByUserid(Long userid) throws Exception;
     public Restaurant_dti add_to_favourites(Long restaurantid,User user) throws Exception;
+    public List<Restaurant> searchRestaurants(String keyword);
     public Restaurant update_restaurant_status(Long restaurantid) throws Exception;
 }

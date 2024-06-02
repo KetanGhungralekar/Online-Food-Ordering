@@ -33,6 +33,7 @@ public class RestServiceImp implements RestaurantService{
     public Restaurant CreateRestaurant(CreateRestaurantreq req, User user) {
         Address address = addressRepo.save(req.getAddress());
         Restaurant restaurant = new Restaurant();
+        System.out.println("id" + restaurant.getId());
         restaurant.setAddress(address);
         restaurant.setContactInformation(req.getContactInformation());
         restaurant.setCuisineType(req.getCuisineType());
@@ -94,10 +95,10 @@ public class RestServiceImp implements RestaurantService{
         return restaurantRepository.findAll();
     }
 
-    // @Override
-    // public List<Restaurant> searchRestaurants(String keyword) {
-    //     return restaurantRepository.findBySearchQuery(keyword);
-    // }
+    @Override
+    public List<Restaurant> searchRestaurants(String keyword) {
+        return restaurantRepository.findBySearchQuery(keyword);
+    }
 
     @Override
     public List<Restaurant> searchRestaurantsByCuisine(String cuisine) throws Exception {
