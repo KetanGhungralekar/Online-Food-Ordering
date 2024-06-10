@@ -34,7 +34,7 @@ public class JwtTokenValidator extends OncePerRequestFilter{
             }// Allow the request to proceed without authentication
             return;
         }
-        if (request.getRequestURI().equals("/auth/signin") && (jwt == null || jwt.isEmpty())) {
+        if (request.getRequestURI().equals("/auth/signin")) {
             try{
                 filterChain.doFilter(request, response);
             } catch (Exception e){

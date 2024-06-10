@@ -36,7 +36,7 @@ public class RestaurantController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-    @PostMapping("/get/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<?> GetRestaurantById(@RequestHeader("Authorization") String jwt,@PathVariable Long id){
         try{
             User user = userService.FindUserByJwt(jwt);

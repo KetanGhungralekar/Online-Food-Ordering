@@ -31,7 +31,7 @@ public class AppConfig {
         .requestMatchers("/api/**").authenticated()
         .anyRequest().permitAll()
     )
-    .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class).csrf(csrf->csrf.disable());
+    .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class).csrf(csrf->csrf.disable()).cors(cors->cors.configurationSource(corsConfigurationSource()));
         return http.build();
     }
     private CorsConfigurationSource corsConfigurationSource() {
@@ -39,7 +39,7 @@ public class AppConfig {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request){
                 CorsConfiguration cors = new CorsConfiguration();
-                cors.setAllowedOrigins(Arrays.asList("http://localhost:8080")); // which origins are allowed // * means all origins are allowed
+                cors.setAllowedOrigins(Arrays.asList("http://localhost:8080","http://localhost:3000")); // which origins are allowed // * means all origins are allowed
                 cors.setAllowedMethods(Collections.singletonList("*")); //
                 cors.setAllowedHeaders(Collections.singletonList("*"));// which headers are allowed in the request // * means all headers are allowed like authorization, content-type etc
                 cors.setExposedHeaders(Arrays.asList("Authorization")); // which headers are allowed in the response

@@ -1,6 +1,6 @@
 package com.Ketan.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -44,6 +44,6 @@ public class Order {
 
     @OneToMany
     private List<OrderItem> orderItems;
-    private int totalItems;
+    private Long totalItems;
     private Long TotalPrice;
 }

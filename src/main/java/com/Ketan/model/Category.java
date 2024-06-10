@@ -22,5 +22,5 @@ public class Category {
 
     @JsonIgnore
     @ManyToOne
-    private Restaurant restaurant;
+    private Restaurant restaurant; // can i set this in service layer // yes but jsonignore will block it
 }

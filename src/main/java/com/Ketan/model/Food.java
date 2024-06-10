@@ -3,6 +3,7 @@ package com.Ketan.model;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -29,13 +30,14 @@ public class Food {
     private Long price;
 
     @ManyToOne
-    private Category foodcategory;
+    private Category foodcategory; //it is required to have a category in database before adding food
 
     @Column(length = 1000)
     @ElementCollection
     private List<String> images;
     private boolean available;
 
+    @JsonIgnore
     @ManyToOne
     private Restaurant restaurant;
 

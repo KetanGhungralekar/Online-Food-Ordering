@@ -14,9 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 
 
@@ -54,7 +56,7 @@ public class AdminRestarantController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> UpdateRestaurant(@RequestHeader("Authorization") String jwt,@PathVariable Long id,@RequestBody CreateRestaurantreq req){
         try{
             User user = userService.FindUserByJwt(jwt);
@@ -64,7 +66,7 @@ public class AdminRestarantController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> DeleteRestaurant(@RequestHeader("Authorization") String jwt,@PathVariable Long id){
         try{
             User user = userService.FindUserByJwt(jwt);
@@ -75,7 +77,7 @@ public class AdminRestarantController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-    @PostMapping("/updateStatus/{id}")
+    @PutMapping("/updateStatus/{id}")
     public ResponseEntity<?> UpdateRestaurantStatus(@RequestHeader("Authorization") String jwt,@PathVariable Long id){
         try{
             User user = userService.FindUserByJwt(jwt);
