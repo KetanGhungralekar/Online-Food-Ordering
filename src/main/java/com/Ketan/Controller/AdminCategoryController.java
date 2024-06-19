@@ -49,11 +49,11 @@ public class AdminCategoryController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("/category/restaurant")
-    public ResponseEntity<?> getCategoriesByRestaurant(@RequestHeader("Authorization") String jwt) throws Exception {
+    @GetMapping("/category/restaurant/{restaurantid}")
+    public ResponseEntity<?> getCategoriesByRestaurant(@RequestHeader("Authorization") String jwt,@PathVariable Long restaurantid) throws Exception {
         try{
             User user = userService.FindUserByJwt(jwt);
-            return new ResponseEntity<>(categoryService.findByRestaurantId(user.getId()), HttpStatus.OK);
+            return new ResponseEntity<>(categoryService.findByRestaurantId(restaurantid), HttpStatus.OK);
         }
         catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

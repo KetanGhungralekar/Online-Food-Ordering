@@ -29,6 +29,7 @@ public class IngredientsCategory {
     @ManyToOne
     private Restaurant restaurant; 
 
+    @JsonIgnore
     @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
     private List<Ingredientsitem> ingredients;
 }

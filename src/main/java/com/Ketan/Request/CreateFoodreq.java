@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.Ketan.model.Category;
 import com.Ketan.model.Ingredientsitem;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
@@ -14,8 +15,10 @@ public class CreateFoodreq {
     private Long price;
     private Category foodcategory;
     private boolean available;
-    private boolean isVeg;
-    private boolean isSeasonal;
+    @JsonProperty("Veg")
+    private boolean Veg;
+    @JsonProperty("Seasonal")
+    private boolean Seasonal;
     private Long restaurantId;
     private List<String> images;
     private List<Ingredientsitem> ingredients;

@@ -1,6 +1,7 @@
 package com.Ketan.Service;
 
 import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,7 @@ public class RestServiceImp implements RestaurantService{
         Address address = addressRepo.save(req.getAddress());
         Restaurant restaurant = new Restaurant();
         System.out.println("id" + restaurant.getId());
+        addressRepo.save(address);
         restaurant.setAddress(address);
         restaurant.setContactInformation(req.getContactInformation());
         restaurant.setCuisineType(req.getCuisineType());
@@ -120,11 +122,18 @@ public class RestServiceImp implements RestaurantService{
         Restaurant_dti restaurant_dti = new Restaurant_dti();
         restaurant_dti.setDescription(restaurant.getDescription());
         restaurant_dti.setId(restaurantid);
-        restaurant_dti.setTitle(restaurant.getName());
-        if (user.getFavourites().contains(restaurant_dti)){
-            user.getFavourites().remove(restaurant_dti);
+        restaurant_dti.setName(restaurant.getName());
+        restaurant_dti.setImages(restaurant.getImages());
+        Iterator<Restaurant_dti> iterator = user.getFavourites().iterator();
+        boolean found = false;
+        while (iterator.hasNext()) {
+            Restaurant_dti r = iterator.next();
+            if (r.getId() == restaurantid) {
+                found = true;
+                iterator.remove();
+            }
         }
-        else{
+        if (!found){
             user.getFavourites().add(restaurant_dti);
         }
         userrepo.save(user);

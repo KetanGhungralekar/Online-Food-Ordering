@@ -43,6 +43,7 @@ public class AdminFoodController {
             if (restaurant == null){
                 return new ResponseEntity<>("Restaurant not found", HttpStatus.NOT_FOUND);
             }
+            //print req
             return new ResponseEntity<>(foodService.CreateFood(req,req.getFoodcategory(),restaurant), HttpStatus.CREATED);
         }
         catch (Exception e){

@@ -55,7 +55,7 @@ public class CartServiceImp implements CartService{
         try {
             Optional <CartItems> cartItemsoptional = cartitemRepo.findById(cartitemId);
             if(cartItemsoptional.isEmpty()){
-                throw new Exception("Cart item not found");
+                throw new Exception("ddsmksm");
             }
             CartItems cartItems = cartItemsoptional.get();
             cartItems.setQuantity(quantity);
@@ -63,6 +63,7 @@ public class CartServiceImp implements CartService{
             return cartitemRepo.save(cartItems);
         }
         catch(Exception e){
+            System.out.println(e.getMessage());
             throw new Exception("Error in updating cart items");
         }
     }

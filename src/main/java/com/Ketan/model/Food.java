@@ -37,7 +37,6 @@ public class Food {
     private List<String> images;
     private boolean available;
 
-    @JsonIgnore
     @ManyToOne
     private Restaurant restaurant;
 
