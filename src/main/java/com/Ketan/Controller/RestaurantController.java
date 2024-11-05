@@ -66,4 +66,14 @@ public class RestaurantController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/getByUser")
+    public ResponseEntity<?> GetRestaurantByUser(@RequestHeader("Authorization") String jwt){
+        try{
+            User user = userService.FindUserByJwt(jwt);
+            return new ResponseEntity<>(restaurantService.getRestaurantByUserid(user.getId()), HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

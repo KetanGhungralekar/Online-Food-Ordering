@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Ketan.Request.CreateOrderreq;
+import com.Ketan.Service.EmailService;
 import com.Ketan.Service.OrderService;
 import com.Ketan.Service.UserService;
+import com.Ketan.model.Order;
 import com.Ketan.model.User;
 
 @RestController
@@ -24,12 +26,24 @@ public class OrderController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EmailService emailService;
+
     @PostMapping("/order")
     public ResponseEntity<?> createOrder(@RequestHeader("Authorization") String jwt,@RequestBody CreateOrderreq order){
         try {
             User user = userService.FindUserByJwt(jwt);
-            return ResponseEntity.ok(orderService.CreateOrderItem(order,user));
+            Order createdOrder = orderService.CreateOrderItem(order, user);
+
+            // Send confirmation email
+            String toEmail = user.getEmail(); // Assuming User has an email field
+            String subject = "Order Confirmation";
+            String body = "Dear " + user.getFullname() + ",\n\nYour order has been successfully created with order ID: " 
+                          + createdOrder.getId() + ".\n\nThank you for your purchase!";
+            emailService.sendOrderConfirmationEmail(toEmail, subject, body);
+            return ResponseEntity.ok(createdOrder);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
