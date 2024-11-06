@@ -42,7 +42,7 @@ public class AdminCategoryController {
     @GetMapping("/category/{categoryid}")
     public ResponseEntity<?> getCategory(@RequestHeader("Authorization") String jwt, @PathVariable Long categoryid) throws Exception {
         try{
-            User user = userService.FindUserByJwt(jwt);
+            // User user = userService.FindUserByJwt(jwt);
             return new ResponseEntity<>(categoryService.getCategory(categoryid), HttpStatus.OK);
         }
         catch (Exception e){
@@ -52,7 +52,8 @@ public class AdminCategoryController {
     @GetMapping("/category/restaurant/{restaurantid}")
     public ResponseEntity<?> getCategoriesByRestaurant(@RequestHeader("Authorization") String jwt,@PathVariable Long restaurantid) throws Exception {
         try{
-            User user = userService.FindUserByJwt(jwt);
+            // User user = userService.FindUserByJwt(jwt);
+            // System.out.println("restaurantid: "+restaurantid);
             return new ResponseEntity<>(categoryService.findByRestaurantId(restaurantid), HttpStatus.OK);
         }
         catch (Exception e){

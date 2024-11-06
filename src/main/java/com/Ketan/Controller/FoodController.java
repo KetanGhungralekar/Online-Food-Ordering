@@ -48,12 +48,11 @@ public class FoodController {
     @GetMapping("/getByRestaurant/{restaurantid}")
     public ResponseEntity<?> GetFoodsByRestaurant(@RequestHeader("Authorization") String jwt,@PathVariable Long restaurantid,@RequestParam(required = false) boolean isVeg,@RequestParam(required = false) boolean isNonveg,@RequestParam(required = false) boolean isSeasonal,@RequestParam(required = false) String foodCategory){
         try{
-            User user = userService.FindUserByJwt(jwt);
+            // User user = userService.FindUserByJwt(jwt);
             return new ResponseEntity<>(foodService.getFoodsByRestaurant(restaurantid, isVeg, isNonveg, isSeasonal, foodCategory), HttpStatus.OK);
         }
         catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        
     }
 }

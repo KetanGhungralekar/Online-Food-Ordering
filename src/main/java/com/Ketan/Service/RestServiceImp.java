@@ -79,6 +79,7 @@ public class RestServiceImp implements RestaurantService{
 
     @Override
     public Restaurant getRestaurant(Long restaurantid) throws Exception {
+        System.out.println("restaurantid" + restaurantid);
         Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantid);
         if (!restaurant.isPresent()){
             throw new Exception("Restaurant not found");
@@ -109,6 +110,7 @@ public class RestServiceImp implements RestaurantService{
 
     @Override
     public Restaurant getRestaurantByUserid(Long userid) throws Exception {
+        System.out.println("userid" + userid);
         Restaurant restaurant = restaurantRepository.findByOwnerId(userid);
         if (restaurant == null){
             throw new Exception("Restaurant not found");

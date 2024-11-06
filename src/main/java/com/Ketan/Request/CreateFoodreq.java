@@ -14,7 +14,7 @@ public class CreateFoodreq {
     private String description;
     private Long price;
     private Category foodcategory;
-    private boolean available;
+    private boolean available = true;
     @JsonProperty("Veg")
     private boolean Veg;
     @JsonProperty("Seasonal")

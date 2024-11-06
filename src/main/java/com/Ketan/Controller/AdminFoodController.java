@@ -53,9 +53,8 @@ public class AdminFoodController {
     @DeleteMapping("/delete/{foodid}")
     public ResponseEntity<?> Deletefood(@RequestHeader("Authorization") String jwt,@PathVariable Long foodid){
         try{
-            User user = userService.FindUserByJwt(jwt);
             foodService.deleteFood(foodid);
-            return new ResponseEntity<>("Food deleted successfully", HttpStatus.OK);
+            return new ResponseEntity<>(foodid, HttpStatus.OK);
         }
         catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
