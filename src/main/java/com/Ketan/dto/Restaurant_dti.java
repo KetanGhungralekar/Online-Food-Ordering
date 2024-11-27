@@ -15,5 +15,6 @@ public class Restaurant_dti {
     @Column(length = 1000)
     private List<String> images;
 
-    private String description;
+    private String description;//given description of restaurant
+
 }
